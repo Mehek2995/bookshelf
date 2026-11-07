@@ -4,7 +4,7 @@ import './App.css'
 import BookView from './components/BookView'
 
 export default function App() {
-  
+
   const [books, setBooks] = useState([
     { id: 'a', title: 'Operating Systems', color: '#27456b' },
     { id: 'b', title: 'Maths', color: '#3f6b4d' },
@@ -17,6 +17,9 @@ export default function App() {
     if (!title) return
     setBooks([...books, { id: Date.now().toString(), title, color: '#6a3b5e' }])
   }
+  function updateText(id, text) {
+    setBooks(books.map((b) => (b.id === id ? { ...b, text } : b)))
+  }
 
   return (
     <>
@@ -24,7 +27,9 @@ export default function App() {
         Bookshelf <button onClick={addBook}>New notebook</button>
       </header>
       {openBook ? (
-        <BookView book={openBook} onBack={() => setOpenId(null)} />
+        <BookView book={openBook}
+          onBack={() => setOpenId(null)}
+          onTextChange={(text) => updateText(openBook.id, text)} />
       ) : (
         <Shelf books={books} onOpen={setOpenId} />
       )}
