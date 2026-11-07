@@ -6,3 +6,5 @@ header { padding: 14px 24px; font-size: 24px; font-weight: 600; }
 .spread { display: flex; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); width: fit-content; }
 .page { box-sizing: border-box; border: 0; resize: none; overflow: hidden; outline: none; background: #fffef9; color: #23211c; font-family: Georgia, serif; font-size: 15.9px; line-height: 1.7; padding: 45px; }
 .page + .page { box-shadow: inset 14px 0 14px -14px rgba(0, 0, 0, 0.35); }
+.meter { position: absolute; left: -9999px; top: 0; visibility: hidden; }
+.page.full { background: #ffe9e5; }

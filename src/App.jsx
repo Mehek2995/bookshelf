@@ -17,14 +17,8 @@ export default function App() {
     if (!title) return
     setBooks([...books, { id: Date.now().toString(), title, color: '#6a3b5e' }])
   }
-  function updatePage(id, pageIndex, text) {
-    setBooks(
-      books.map((b) => {
-        if (b.id !== id) return b
-        const pages = b.pages.map((p, i) => (i === pageIndex ? text : p))
-        return { ...b, pages }
-      })
-    )
+  function setPages(id, pages) {
+    setBooks(books.map((b) => (b.id === id ? { ...b, pages } : b)))
   }
 
   return (
@@ -35,7 +29,7 @@ export default function App() {
       {openBook ? (
         <BookView book={openBook}
           onBack={() => setOpenId(null)}
-          onPageChange={(i, text) => updatePage(openBook.id, i, text)} />
+          onPagesChange={(pages) => setPages(openBook.id, pages)} />
       ) : (
         <Shelf books={books} onOpen={setOpenId} />
       )}
