@@ -6,8 +6,8 @@ import BookView from './components/BookView'
 export default function App() {
 
   const [books, setBooks] = useState([
-    { id: 'a', title: 'Operating Systems', color: '#27456b' },
-    { id: 'b', title: 'Maths', color: '#3f6b4d' },
+    { id: 'a', title: 'Operating Systems', color: '#27456b', w: 148, h: 210, pages: ['', ''] },
+    { id: 'b', title: 'Maths', color: '#3f6b4d', pages: ['', ''] },
   ])
   const [openId, setOpenId] = useState(null)
   const openBook = books.find((b) => b.id === openId)
@@ -17,8 +17,14 @@ export default function App() {
     if (!title) return
     setBooks([...books, { id: Date.now().toString(), title, color: '#6a3b5e' }])
   }
-  function updateText(id, text) {
-    setBooks(books.map((b) => (b.id === id ? { ...b, text } : b)))
+  function updatePage(id, pageIndex, text) {
+    setBooks(
+      books.map((b) => {
+        if (b.id !== id) return b
+        const pages = b.pages.map((p, i) => (i === pageIndex ? text : p))
+        return { ...b, pages }
+      })
+    )
   }
 
   return (
@@ -29,7 +35,7 @@ export default function App() {
       {openBook ? (
         <BookView book={openBook}
           onBack={() => setOpenId(null)}
-          onTextChange={(text) => updateText(openBook.id, text)} />
+          onPageChange={(i, text) => updatePage(openBook.id, i, text)} />
       ) : (
         <Shelf books={books} onOpen={setOpenId} />
       )}
