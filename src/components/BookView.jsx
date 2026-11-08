@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { PX, reflow } from '../lib/pagination'
+import { exportPdf } from '../lib/exportPdf'
 
 export default function BookView({ book, onBack, onPagesChange }) {
   const [sp, setSp] = useState(0) // index of the left page of the open spread
@@ -53,6 +54,7 @@ export default function BookView({ book, onBack, onPagesChange }) {
   return (
     <div className="bookview">
       <button onClick={onBack}>Back to shelf</button>
+      <button onClick={() => exportPdf(book)}>Export PDF</button>
       <h2>{book.title}</h2>
       <div className="fit" style={{ width: book.w * PX * 2 * scale, height: book.h * PX * scale }}>
         <div
